@@ -1,5 +1,6 @@
 import pandas as pd
 from tabulate import tabulate
+import matplotlib.pyplot as plt
 
 # Data dummy langsung dalam bentuk DataFrame Pandas
 data_dummy = pd.DataFrame({
@@ -44,3 +45,11 @@ weighted_data['Total'] = weighted_data.iloc[:, 1:].sum(axis=1)
 # Menampilkan hasil akhir
 print("\nHasil Akhir:")
 print(tabulate(weighted_data[['Alternatif', 'Total']].sort_values(by='Total', ascending=False), headers='keys', tablefmt='fancy_grid'))
+
+# Visualisasi hasil menggunakan grafik batang
+plt.figure(figsize=(8, 5))
+plt.bar(weighted_data['Alternatif'], weighted_data['Total'], color='skyblue')
+plt.title('Peringkat Hasil Akhir SAW')
+plt.xlabel('Alternatif')
+plt.ylabel('Nilai Total')
+plt.show()
