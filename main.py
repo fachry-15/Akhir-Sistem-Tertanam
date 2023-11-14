@@ -1,6 +1,5 @@
 import pandas as pd
 from tabulate import tabulate
-import matplotlib.pyplot as plt
 
 # Data dummy langsung dalam bentuk DataFrame Pandas
 data_dummy = pd.DataFrame({
@@ -12,7 +11,7 @@ data_dummy = pd.DataFrame({
 })
 
 # Menampilkan data dummy
-print("Data Dummy:")
+print("\nData Dummy:")
 print(tabulate(data_dummy, headers='keys', tablefmt='fancy_grid'))
 
 # Normalisasi matriks keputusan
@@ -40,17 +39,8 @@ print("\nBobot Normalisasi:")
 print(tabulate(weighted_data, headers='keys', tablefmt='fancy_grid'))
 
 # Menghitung nilai akhir untuk setiap alternatif
-weighted_data['Total'] = weighted_data.sum(axis=1)
+weighted_data['Total'] = weighted_data.iloc[:, 1:].sum(axis=1)
 
 # Menampilkan hasil akhir
-hasil_akhir = weighted_data[['Alternatif', 'Total']].sort_values(by='Total', ascending=False)
 print("\nHasil Akhir:")
-print(tabulate(hasil_akhir, headers='keys', tablefmt='fancy_grid'))
-
-# Visualisasi hasil menggunakan grafik batang setelah menampilkan hasil akhir
-plt.figure(figsize=(8, 5))
-plt.bar(hasil_akhir['Alternatif'], hasil_akhir['Total'], color='skyblue')
-plt.title('Peringkat Hasil Akhir SAW')
-plt.xlabel('Alternatif')
-plt.ylabel('Nilai Total')
-plt.show()
+print(tabulate(weighted_data[['Alternatif', 'Total']].sort_values(by='Total', ascending=False), headers='keys', tablefmt='fancy_grid'))
